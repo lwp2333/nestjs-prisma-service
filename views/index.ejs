@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nestjs</title>
+  </head>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      min-height: 100vh;
+      background: linear-gradient(117deg, #6b46e3 0%, #f97794 50%, #f6416c 100%);
+      overflow: hidden;
+    }
+    .bg-container {
+      position: relative;
+      width: 10rem;
+      height: 100vh;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .top-border {
+      position: absolute;
+      width: 3.5rem;
+      height: 1.25rem;
+      top: 0.75rem;
+      right: 0.25rem;
+      transform: skew(4deg, -4deg);
+      border: 0.0625rem solid #fff;
+      border-radius: 1rem;
+      opacity: 0.2;
+    }
+
+    .top-shadow {
+      position: absolute;
+      width: 4.5rem;
+      height: 3.25rem;
+      top: -1.75rem;
+      left: 1.28rem;
+      transform: skew(4deg, -4deg);
+      background-color: #fff;
+      border-radius: 1rem;
+      opacity: 0.08;
+    }
+
+    .middle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .title {
+      color: #fff;
+      font-size: 0.8rem;
+    }
+    @keyframes rotate {
+      0% {
+        transform: translate(-50%, 0) rotateZ(0deg);
+      }
+
+      50% {
+        transform: translate(-50%, -2%) rotateZ(180deg);
+      }
+
+      100% {
+        transform: translate(-50%, 0%) rotateZ(360deg);
+      }
+    }
+
+    .bottom::before,
+    .bottom::after {
+      content: '';
+      position: absolute;
+      min-width: 100vw;
+      min-height: 100vw;
+      background-color: #fff;
+      animation-name: rotate;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    .bottom::before {
+      left: 32%;
+      top: 85vh;
+      opacity: 0.1;
+      border-radius: 45%;
+      animation-duration: 10s;
+    }
+
+    .bottom::after {
+      left: 82%;
+      top: 82vh;
+      opacity: 0.2;
+      border-radius: 47%;
+      animation-duration: 10s;
+    }
+  </style>
+
+  <body>
+    <div class="bg-container">
+      <div class="top-border"></div>
+      <div class="top-shadow"></div>
+      <div class="middle">
+        <div class="title"><%=message%></div>
+      </div>
+      <div class="bottom"></div>
+    </div>
+  </body>
+
+  <script>
+    ;(function () {
+      function autoRootFontSize() {
+        let Width = Math.min(screen.width, document.documentElement.getBoundingClientRect().width)
+        Width = Width > 750 ? 750 : Width
+        const pixelRatio = window.devicePixelRatio
+        document.documentElement.style.fontSize = Width / 20 + 'px'
+        // document.body.style.fontSize = (Width / 10 / pixelRatio) * 2 + 'px'
+      }
+      window.addEventListener('resize', autoRootFontSize)
+      autoRootFontSize()
+    })()
+  </script>
+</html>
