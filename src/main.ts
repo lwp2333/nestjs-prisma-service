@@ -1,11 +1,12 @@
 import { NestFactory } from '@nestjs/core'
-import { AppModule } from './app.module'
 import { NestExpressApplication } from '@nestjs/platform-express'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import { ValidationPipe } from '@nestjs/common'
 import { join } from 'path'
-import { TranformInterceptor } from './common/tranform.interceptor'
-import { HttpExecptionFilter } from './common/http-execption.filter'
+import { AppModule } from './app.module'
+
+import { TranformInterceptor } from '@/common/tranform.interceptor'
+import { HttpExecptionFilter } from '@/common/http-execption.filter'
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule)
@@ -17,7 +18,7 @@ async function bootstrap() {
   // 跨域适配
   app.enableCors()
   // 项目前缀
-  app.setGlobalPrefix('v1')
+  app.setGlobalPrefix('api')
   // 校验管道
   app.useGlobalPipes(
     new ValidationPipe({
@@ -33,9 +34,9 @@ async function bootstrap() {
   app.setBaseViewsDir(join(__dirname, '..', 'views')) // 放视图的文件
   app.setViewEngine('ejs')
   // swagger docs
-  const config = new DocumentBuilder().setTitle('swagger').setDescription('The api docs description').setVersion('1.0').build()
+  const config = new DocumentBuilder().setTitle('人间观察员').setDescription('before birth').setVersion('1.0').build()
   const document = SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('api', app, document)
+  SwaggerModule.setup('swagger', app, document)
   // 启动微服务
   await app.startAllMicroservices()
   // 启动主服务
