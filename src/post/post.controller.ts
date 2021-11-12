@@ -52,6 +52,14 @@ export class PostController {
         id: +id,
         authorId: +authorId,
       },
+      include: {
+        user: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+      },
     })
     return {
       data,

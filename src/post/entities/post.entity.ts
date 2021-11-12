@@ -1,3 +1,16 @@
+export class UserShortEntity {
+  /**
+   * 用户名
+   * @example xxx
+   */
+  name: string
+  /**
+   * 用户邮箱
+   * @example  1348@qq.com
+   */
+  email: string
+}
+
 export class PostEntity {
   /**
    * 主键
@@ -34,4 +47,9 @@ export class PostEntity {
    * @example  2021-09-4 23:59:59
    */
   updatedAt: Date
+  /**
+   * 用户简介信息
+   * @example
+   */
+  user?: UserShortEntity
 }

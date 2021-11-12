@@ -709,10 +709,10 @@
     consola "^2.15.0"
     node-fetch "^2.6.1"
 
-"@prisma/client@^3.4.1":
-  version "3.4.1"
-  resolved "https://registry.npmmirror.com/@prisma/client/download/@prisma/client-3.4.1.tgz#046974f6a27c6930d6858f22fc50841d6219f191"
-  integrity sha1-BGl09qJ8aTDWhY8i/FCEHWIZ8ZE=
+"@prisma/client@^3.4.2":
+  version "3.4.2"
+  resolved "https://registry.npmmirror.com/@prisma/client/download/@prisma/client-3.4.2.tgz#36b8da0d788e4f5dc7c4a5e83a9f83b0e2bfbb1a"
+  integrity sha512-HyQGq9m1V99zpNSJ/FojZJnvzqWUd18ErIXwxLzSuurS23XlhHEPtxgpxJaegBmjsr/KCYqcXFOPmM1gRLpI0w==
   dependencies:
     "@prisma/engines-version" "3.4.1-2.57771c0558568c7d08bd34c7248af5244ae16bd9"
 
@@ -4135,10 +4135,10 @@ pretty-format@^27.0.0, pretty-format@^27.3.1:
     ansi-styles "^5.0.0"
     react-is "^17.0.1"
 
-prisma@^3.4.1:
-  version "3.4.1"
-  resolved "https://registry.npmmirror.com/prisma/download/prisma-3.4.1.tgz?cache=0&sync_timestamp=1636452681054&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fprisma%2Fdownload%2Fprisma-3.4.1.tgz#a6c406301e67716009dcbdedc09a1c9bf7bd3b2d"
-  integrity sha1-psQGMB5ncWAJ3L3twJocm/e9Oy0=
+prisma@^3.4.2:
+  version "3.4.2"
+  resolved "https://registry.npmmirror.com/prisma/download/prisma-3.4.2.tgz#d09e983f30fed579ddb1bb60adb369db732e3de5"
+  integrity sha512-wOD1lni7MfH/Qkp5SAkUthLKG+pQcpD31Nm8nAKj9ESgqId/dy+JDSTYOuk/pySvFyby/A+bsAPWIaVmo7qqhQ==
   dependencies:
     "@prisma/engines" "3.4.1-2.57771c0558568c7d08bd34c7248af5244ae16bd9"
 
