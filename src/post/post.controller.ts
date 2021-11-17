@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpStatus } from '@nestjs/common'
-import { ApiTags, ApiResponse, ApiOperation } from '@nestjs/swagger'
+import { ApiTags, ApiResponse } from '@nestjs/swagger'
 import { post as PostModel } from '@prisma/client'
 import { PrismaService } from '../prisma.service'
 import { CreatePostDto, UpdatePostDto } from './dto/post.dto'
@@ -11,8 +11,10 @@ import { PostEntity } from './entities/post.entity'
 export class PostController {
   constructor(private readonly prismaService: PrismaService) {}
 
+  /**
+   * 根据作者id，获取全部文章
+   */
   @Get(':authorId')
-  @ApiOperation({ summary: '根据作者id，获取全部文章' })
   @ApiResponse({ status: 200, type: [PostEntity], description: '' })
   async findAll(@Param('authorId') authorId: string): Promise<commmonType<PostModel[]>> {
     const data = await this.prismaService.post.findMany({
@@ -27,8 +29,10 @@ export class PostController {
     }
   }
 
+  /**
+   * 根据作者id，发布文章
+   */
   @Post(':authorId')
-  @ApiOperation({ summary: '根据作者id，发布文章' })
   @ApiResponse({ status: 200, type: PostEntity, description: '' })
   async create(@Param('authorId') authorId: string, @Body() body: CreatePostDto): Promise<commmonType<PostModel>> {
     const data = await this.prismaService.post.create({
@@ -43,8 +47,10 @@ export class PostController {
     }
   }
 
+  /**
+   * 根据作者id及文章id，获取文章
+   */
   @Get(':authorId/:id')
-  @ApiOperation({ summary: '根据作者id及文章id，获取文章' })
   @ApiResponse({ status: 200, type: PostEntity, description: '' })
   async findOne(@Param('id') id: string, @Param('authorId') authorId: string): Promise<commmonType<PostModel>> {
     const data = await this.prismaService.post.findFirst({
@@ -67,8 +73,10 @@ export class PostController {
     }
   }
 
+  /**
+   * 根据作者id及文章id，更新文章
+   */
   @Patch(':authorId/:id')
-  @ApiOperation({ summary: '根据作者id及文章id，更新文章' })
   @ApiResponse({ status: 200, type: PostEntity, description: '' })
   async update(@Param('id') id: string, @Param('authorId') authorId: string, @Body() body: UpdatePostDto): Promise<commmonType<PostModel>> {
     const data = await this.prismaService.post.update({
@@ -85,8 +93,10 @@ export class PostController {
     }
   }
 
+  /**
+   * 根据作者id及文章id，删除文章
+   */
   @Delete(':authorId/:id')
-  @ApiOperation({ summary: '根据作者id及文章id，删除文章' })
   @ApiResponse({ status: 200, type: PostEntity, description: '' })
   async remove(@Param('id') id: string, @Param('authorId') authorId: string): Promise<commmonType<PostModel>> {
     const data = await this.prismaService.post.findUnique({
