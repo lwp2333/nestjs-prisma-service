@@ -12,7 +12,7 @@ export class CreateUserDto {
    *  邮箱
    */
   @IsEmail({})
-  email: string // 邮箱
+  email: string
 }
 
 export class UpdateUserDto {
@@ -27,5 +27,5 @@ export class UpdateUserDto {
    *  邮箱
    */
   @IsEmail({})
-  email: string // 邮箱
+  email: string
 }

@@ -4,8 +4,9 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { PrismaService } from './prisma.service'
 
-import { PostModule } from './post/post.module'
-import { UserModule } from './user/user.module'
+// import { PostModule } from './post/post.module'
+// import { UserModule } from './user/user.module'
+import { GapiModule } from './gapi/gapi.module'
 
 @Module({
   imports: [
@@ -14,8 +15,10 @@ import { UserModule } from './user/user.module'
       envFilePath: ['.env.', '.env.development', '.env.staging', '.env.production'],
     }),
     // mysql prisma 使用示例
-    PostModule,
-    UserModule,
+    // PostModule,
+    // UserModule,
+    // gapi
+    GapiModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService, PrismaService],
