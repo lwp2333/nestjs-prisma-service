@@ -2,17 +2,17 @@ import { Controller, Get, Post, Patch, Param, Delete, Body, Query } from '@nestj
 import { ApiTags, ApiResponse } from '@nestjs/swagger'
 import { PrismaService } from '@/prisma.service'
 import { commmonType } from '@/common/commonResponseType'
-import { GetGapiPageListDto } from './dto/gapi.dto'
+import { EditGapiDetailDto, GetGapiPageListDto } from './dto/gapi.dto'
 import { GapiEntity } from './entities/gapi.entity'
 
-@ApiTags('gapi')
-@Controller('gapi')
+@ApiTags('gapiTest')
+@Controller('gapiTest')
 export class GapiController {
   constructor(private readonly prismaService: PrismaService) {}
   /**
-   * 不带参数，默认get，
+   * 全部列表
    */
-  @Get()
+  @Get('list')
   @ApiResponse({ status: 200, type: [GapiEntity], description: '' })
   async getAllList(): Promise<commmonType<null>> {
     return {
@@ -22,11 +22,63 @@ export class GapiController {
   }
 
   /**
-   * 分页筛选表格
+   * 分页筛选列表
    */
   @Post('listByPage')
   @ApiResponse({ status: 200, type: [GapiEntity], description: '' })
   async getPageList(@Body() body: GetGapiPageListDto): Promise<commmonType<null>> {
+    console.log(body)
+    return {
+      data: null,
+      message: '',
+    }
+  }
+
+  /**
+   * 获取详情 Param
+   */
+  @Get('getDetail/:id')
+  @ApiResponse({ status: 200, type: GapiEntity, description: '' })
+  async getDetailByParam(@Param('id') id: string): Promise<commmonType<string>> {
+    console.log(id)
+    return {
+      data: id,
+      message: '',
+    }
+  }
+
+  /**
+   * 获取详情 Query
+   */
+  @Get('getDetail')
+  @ApiResponse({ status: 200, type: GapiEntity, description: '' })
+  async getDetailByQuery(@Query('id') id: string): Promise<commmonType<string>> {
+    console.log(id)
+    return {
+      data: id,
+      message: '',
+    }
+  }
+
+  /**
+   * 编辑详情 Post
+   */
+  @Post('editDetailByPost')
+  @ApiResponse({ status: 200, type: Boolean, description: '' })
+  async editDetailByPost(@Body() body: EditGapiDetailDto): Promise<commmonType<null>> {
+    console.log(body)
+    return {
+      data: null,
+      message: '',
+    }
+  }
+
+  /**
+   * 编辑详情 Patch
+   */
+  @Patch('editDetailByPatch')
+  @ApiResponse({ status: 200, type: Boolean, description: '' })
+  async editDetailByPatch(@Body() body: EditGapiDetailDto): Promise<commmonType<null>> {
     console.log(body)
     return {
       data: null,

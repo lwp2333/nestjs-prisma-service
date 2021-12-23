@@ -29,3 +29,18 @@ export class GetGapiPageListDto {
    */
   statusEnum: EStatus
 }
+
+export class EditGapiDetailDto {
+  /**
+   * 主键id
+   */
+  id: string
+  /**
+   * 姓名
+   */
+  name?: string
+  /**
+   * 年龄
+   */
+  age?: number
+}
