@@ -6,16 +6,19 @@ import { PrismaService } from './prisma.service'
 
 import { PostModule } from './post/post.module'
 import { UserModule } from './user/user.module'
+import { MediaModule } from './media/media.module'
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: ['.env.', '.env.development', '.env.staging', '.env.production'],
+      envFilePath: ['.env.devlopment.local', '.env.development', '.env.production'],
     }),
     // mysql prisma 使用示例
     PostModule,
     UserModule,
+    // ffmpeg
+    MediaModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService, PrismaService],
