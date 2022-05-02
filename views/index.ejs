@@ -3,8 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="https://cdn200.oss-cn-hangzhou.aliyuncs.com/next-mobile/favicon.ico"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
     <title>Nestjs</title>
   </head>
   <style>
@@ -60,7 +66,7 @@
     }
     .title {
       color: #fff;
-      font-size: 0.8rem;
+      font-size: 0.58rem;
     }
     @keyframes rotate {
       0% {
@@ -117,16 +123,19 @@
   </body>
 
   <script>
-    ;(function () {
+    (function () {
       function autoRootFontSize() {
-        let Width = Math.min(screen.width, document.documentElement.getBoundingClientRect().width)
-        Width = Width > 750 ? 750 : Width
-        const pixelRatio = window.devicePixelRatio
-        document.documentElement.style.fontSize = Width / 20 + 'px'
-        // document.body.style.fontSize = (Width / 10 / pixelRatio) * 2 + 'px'
+        let Width = Math.min(
+          screen.width,
+          document.documentElement.getBoundingClientRect().width
+        );
+        Width = Width > 750 ? 750 : Width;
+        const pixelRatio = window.devicePixelRatio;
+        document.documentElement.style.fontSize =
+          (Width / 10 / pixelRatio) * 2 + 'px';
       }
-      window.addEventListener('resize', autoRootFontSize)
-      autoRootFontSize()
-    })()
+      window.addEventListener('resize', autoRootFontSize);
+      autoRootFontSize();
+    })();
   </script>
 </html>

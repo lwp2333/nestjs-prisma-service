@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ApiTags, ApiResponse } from '@nestjs/swagger'
 import { user as UserModel } from '@prisma/client'
 import { PrismaService } from '@/prisma.service'
-import { commmonType } from '@/common/commonResponseType'
+import { ResType } from '@/common/response.type'
 import { CreateUserDto, UpdateUserDto } from './dto/user.dto'
 import { UserEntity } from './entities/user.entity'
 
@@ -16,7 +16,7 @@ export class UserController {
    */
   @Get()
   @ApiResponse({ status: 200, type: [UserEntity], description: '' })
-  async findAll(): Promise<commmonType<UserModel[]>> {
+  async findAll(): Promise<ResType<UserModel[]>> {
     const data = await this.prismaService.user.findMany({})
     return {
       data,
@@ -29,7 +29,7 @@ export class UserController {
    */
   @Post()
   @ApiResponse({ status: 200, type: UserEntity, description: '' })
-  async create(@Body() body: CreateUserDto): Promise<commmonType<UserModel>> {
+  async create(@Body() body: CreateUserDto): Promise<ResType<UserModel>> {
     const data = await this.prismaService.user.create({
       data: {
         ...body,
@@ -46,7 +46,7 @@ export class UserController {
    */
   @Get(':id')
   @ApiResponse({ status: 200, type: UserEntity, description: '' })
-  async findOne(@Param('id') id: string): Promise<commmonType<UserModel>> {
+  async findOne(@Param('id') id: string): Promise<ResType<UserModel>> {
     const data = await this.prismaService.user.findFirst({
       where: { id: +id },
     })
@@ -61,7 +61,7 @@ export class UserController {
    */
   @Patch(':id')
   @ApiResponse({ status: 200, type: UserEntity, description: '' })
-  async update(@Param('id') id: string, @Body() body: UpdateUserDto): Promise<commmonType<UserModel>> {
+  async update(@Param('id') id: string, @Body() body: UpdateUserDto): Promise<ResType<UserModel>> {
     const data = await this.prismaService.user.update({
       where: { id: +id },
       data: {
@@ -79,7 +79,7 @@ export class UserController {
    */
   @Delete(':id')
   @ApiResponse({ status: 200, type: UserEntity, description: '' })
-  async remove(@Param('id') id: string): Promise<commmonType<UserModel>> {
+  async remove(@Param('id') id: string): Promise<ResType<UserModel>> {
     const data = await this.prismaService.user.delete({
       where: { id: +id },
     })

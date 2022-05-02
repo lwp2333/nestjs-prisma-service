@@ -3,7 +3,7 @@ import { ApiTags, ApiResponse } from '@nestjs/swagger'
 import { post as PostModel } from '@prisma/client'
 import { PrismaService } from '../prisma.service'
 import { CreatePostDto, UpdatePostDto } from './dto/post.dto'
-import { commmonType } from '../common/commonResponseType'
+import { ResType } from '../common/response.type'
 import { PostEntity } from './entities/post.entity'
 
 @ApiTags('post')
@@ -16,7 +16,7 @@ export class PostController {
    */
   @Get(':authorId')
   @ApiResponse({ status: 200, type: [PostEntity], description: '' })
-  async findAll(@Param('authorId') authorId: string): Promise<commmonType<PostModel[]>> {
+  async findAll(@Param('authorId') authorId: string): Promise<ResType<PostModel[]>> {
     const data = await this.prismaService.post.findMany({
       where: {
         authorId: +authorId,
@@ -34,7 +34,7 @@ export class PostController {
    */
   @Post(':authorId')
   @ApiResponse({ status: 200, type: PostEntity, description: '' })
-  async create(@Param('authorId') authorId: string, @Body() body: CreatePostDto): Promise<commmonType<PostModel>> {
+  async create(@Param('authorId') authorId: string, @Body() body: CreatePostDto): Promise<ResType<PostModel>> {
     const data = await this.prismaService.post.create({
       data: {
         ...body,
@@ -52,7 +52,7 @@ export class PostController {
    */
   @Get(':authorId/:id')
   @ApiResponse({ status: 200, type: PostEntity, description: '' })
-  async findOne(@Param('id') id: string, @Param('authorId') authorId: string): Promise<commmonType<PostModel>> {
+  async findOne(@Param('id') id: string, @Param('authorId') authorId: string): Promise<ResType<PostModel>> {
     const data = await this.prismaService.post.findFirst({
       where: {
         id: +id,
@@ -78,7 +78,7 @@ export class PostController {
    */
   @Patch(':authorId/:id')
   @ApiResponse({ status: 200, type: PostEntity, description: '' })
-  async update(@Param('id') id: string, @Param('authorId') authorId: string, @Body() body: UpdatePostDto): Promise<commmonType<PostModel>> {
+  async update(@Param('id') id: string, @Param('authorId') authorId: string, @Body() body: UpdatePostDto): Promise<ResType<PostModel>> {
     const data = await this.prismaService.post.update({
       data: {
         ...body,
@@ -98,7 +98,7 @@ export class PostController {
    */
   @Delete(':authorId/:id')
   @ApiResponse({ status: 200, type: PostEntity, description: '' })
-  async remove(@Param('id') id: string, @Param('authorId') authorId: string): Promise<commmonType<PostModel>> {
+  async remove(@Param('id') id: string, @Param('authorId') authorId: string): Promise<ResType<PostModel>> {
     const data = await this.prismaService.post.findUnique({
       where: {
         id: +id,
