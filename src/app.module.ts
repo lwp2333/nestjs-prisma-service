@@ -1,23 +1,22 @@
-import { Module } from '@nestjs/common'
-import { ConfigModule, ConfigService } from '@nestjs/config'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
-import { PrismaService } from './prisma.service'
-
-import { PostModule } from './post/post.module'
-import { UserModule } from './user/user.module'
-import { MediaModule } from './media/media.module'
+import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { PrismaService } from './services/prisma.service';
+import { PuppeteerModule } from './puppeteer/puppeteer.module';
+import { UploadModule } from './upload/upload.module';
+import { TraslateModule } from './traslate/traslate.module';
+import { MediaModule } from './media/media.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: ['.env.devlopment.local', '.env.development', '.env.production'],
+      envFilePath: ['.env.local', '.env.development', '.env.test', '.env'],
     }),
-    // mysql prisma 使用示例
-    PostModule,
-    UserModule,
-    // ffmpeg
+    PuppeteerModule,
+    UploadModule,
+    TraslateModule,
     MediaModule,
   ],
   controllers: [AppController],

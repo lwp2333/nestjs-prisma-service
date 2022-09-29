@@ -1,9 +1,9 @@
-import { IsUrl } from 'class-validator'
+import { IsUrl } from 'class-validator';
 
 export class TranscodeAudioDto {
   /**
    * 原始音频地址
    */
   @IsUrl()
-  originAudioSrc: string
+  originAudioSrc: string;
 }

@@ -1,47 +1,48 @@
-import { NestFactory } from '@nestjs/core'
-import { NestExpressApplication } from '@nestjs/platform-express'
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
-import { ValidationPipe } from '@nestjs/common'
-import { join } from 'path'
-import { AppModule } from './app.module'
+import { ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import path from 'path';
 
-import { TranformInterceptor } from '@/common/tranform.interceptor'
-import { HttpExecptionFilter } from '@/common/http-execption.filter'
+import { HttpExecptionFilter } from '@/common/httpExecption.filter';
+import { TranformInterceptor } from '@/common/tranform.interceptor';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule)
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // 统一返回拦截器
-  app.useGlobalInterceptors(new TranformInterceptor())
+  app.useGlobalInterceptors(new TranformInterceptor());
   // 统一错误过滤返回
-  app.useGlobalFilters(new HttpExecptionFilter())
+  app.useGlobalFilters(new HttpExecptionFilter());
   // 跨域适配
-  app.enableCors()
+  app.enableCors();
   // 项目前缀
-  app.setGlobalPrefix('api')
+  // app.setGlobalPrefix('v1');
   // 校验管道
   app.useGlobalPipes(
     new ValidationPipe({
       stopAtFirstError: true,
     })
-  )
-  // 静态资源
-  app.useStaticAssets(join(__dirname, '..', 'public'), {
-    prefix: '/static',
-    maxAge: 1000 * 60 * 10,
-  })
+  );
   // 视图模板引擎
-  app.setBaseViewsDir(join(__dirname, '..', 'views')) // 放视图的文件
-  app.setViewEngine('ejs')
+  app.setBaseViewsDir(path.join(__dirname, '../view')); // 视图文件
+  app.setViewEngine('ejs');
+  // 静态资源
+  app.useStaticAssets(path.join(__dirname, '../public'), {
+    prefix: '/public',
+    maxAge: 1000 * 60 * 10,
+  });
   // swagger docs
-  const config = new DocumentBuilder().setTitle('人间观察员').setDescription('before birth').setVersion('1.0').build()
-  const document = SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('swagger', app, document)
-  // 启动微服务
-  await app.startAllMicroservices()
+  const config = new DocumentBuilder()
+    .setTitle('快乐星球')
+    .setDescription('happy-planet-service')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('swagger', app, document);
   // 启动主服务
-  await app.listen(3000)
-
-  console.log(`服务已启动: ${await app.getUrl()}`)
+  await app.listen(process.env.PORT);
+  console.log(`服务已启动: ${await app.getUrl()}`);
 }
-bootstrap()
+bootstrap();

@@ -7,30 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  authorId  Int
-  user      user     @relation(fields: [authorId], references: [id])
-
-  @@index([authorId], map: "authorId")
+model config {
+  id       Int  @id @default(autoincrement())
+  key_name Json
+  value    Json
 }
 
-model profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  userId Int     @unique
-  user   user    @relation(fields: [userId], references: [id])
-}
-
-model user {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  post    post[]
-  profile profile?
+model life_fragment {
+  id      Int    @id @default(autoincrement())
+  title   String @db.VarChar(255)
+  content String @db.VarChar(255)
+  images  Json
+  videos  Json
+  tags    Json
 }

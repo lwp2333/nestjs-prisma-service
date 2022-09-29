@@ -1,12 +1,7 @@
-import { Controller, Get, Render } from '@nestjs/common'
-import { ApiResponse, ApiTags } from '@nestjs/swagger'
-import { AppService } from './app.service'
+import { Controller, Get, Render } from '@nestjs/common';
+import { ApiTags, ApiOkResponse } from '@nestjs/swagger';
+import { AppService } from './app.service';
 
-interface RootType {
-  message: string
-}
-
-@ApiTags('root')
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
@@ -14,13 +9,17 @@ export class AppController {
   /**
    * 主页
    */
+  @ApiTags('root')
   @Get()
   @Render('index')
-  @ApiResponse({ status: 200, type: String, description: '' })
-  async root(): Promise<RootType> {
-    const message = this.appService.getHello()
+  @ApiOkResponse({
+    status: 200,
+    type: String,
+    description: '主页',
+  })
+  getHello(): { message: string } {
     return {
-      message,
-    }
+      message: this.appService.getHello(),
+    };
   }
 }

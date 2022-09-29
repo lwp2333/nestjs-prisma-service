@@ -3,15 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link
-      rel="shortcut icon"
-      href="https://cdn200.oss-cn-hangzhou.aliyuncs.com/next-mobile/favicon.ico"
-    />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
     />
-    <title>Nestjs</title>
+    <title>happy-planet-service</title>
   </head>
   <style>
     html,
@@ -20,7 +16,7 @@
       padding: 0;
       width: 100vw;
       min-height: 100vh;
-      background: linear-gradient(117deg, #6b46e3 0%, #f97794 50%, #f6416c 100%);
+      background: linear-gradient(117deg, #58cffb 0%, #3cd500 50%, #f0ff00 100%);
       overflow: hidden;
     }
     .bg-container {
@@ -67,6 +63,11 @@
     .title {
       color: #fff;
       font-size: 0.58rem;
+    }
+    a {
+      color: #fff;
+      font-size: 0.28rem;
+      text-decoration: none;
     }
     @keyframes rotate {
       0% {
@@ -117,6 +118,7 @@
       <div class="top-shadow"></div>
       <div class="middle">
         <div class="title"><%=message%></div>
+        <a class="link" href="/swagger">接口 api docs</a>
       </div>
       <div class="bottom"></div>
     </div>
@@ -125,14 +127,11 @@
   <script>
     (function () {
       function autoRootFontSize() {
-        let Width = Math.min(
-          screen.width,
-          document.documentElement.getBoundingClientRect().width
-        );
+        let Width = Math.min(screen.width, document.documentElement.getBoundingClientRect().width);
         Width = Width > 750 ? 750 : Width;
-        const pixelRatio = window.devicePixelRatio;
-        document.documentElement.style.fontSize =
-          (Width / 10 / pixelRatio) * 2 + 'px';
+        const pixelRatio = window.devicePixelRatio || 1;
+        document.documentElement.style.fontSize = Width / 10 + 'px';
+        document.body.style.fontSize = 12 * pixelRatio + 'px';
       }
       window.addEventListener('resize', autoRootFontSize);
       autoRootFontSize();

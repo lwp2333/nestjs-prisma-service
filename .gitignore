@@ -5,6 +5,9 @@
 #temp
 /temp
 
+# prisma
+prisma/migrations
+
 # Logs
 logs
 *.log
@@ -13,7 +16,7 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
-.env.*.local
+
 # OS
 .DS_Store
 
@@ -37,5 +40,7 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# prisma
-prisma/migrations
+#compodoc
+documentation
+#local env
+*env.local
