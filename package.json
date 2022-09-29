@@ -42,7 +42,7 @@
     "ejs": "^3.1.8",
     "ffmpeg-stream": "^0.7.0",
     "nanoid": "3.3.4",
-    "node-fetch": "^3.2.10",
+    "node-fetch": "^2.6.7",
     "progress-stream": "^2.0.0",
     "puppeteer": "^18.0.5",
     "reflect-metadata": "^0.1.13",

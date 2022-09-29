@@ -4,6 +4,7 @@ import { Converter } from 'ffmpeg-stream'; // NOTE: ffmpeg 依赖于环境的 ff
 import fs from 'fs';
 import path from 'path';
 import progressStream from 'progress-stream';
+import fetch from 'node-fetch';
 @Injectable()
 export class MediaService {
   constructor(private readonly fileManagerService: FileManagerService) {}
@@ -23,7 +24,6 @@ export class MediaService {
 
     await new Promise(async resolve => {
       console.log(`正在下载音频文件：${originUrl}`);
-      const fetch = await import('node-fetch').then(res => res.default);
       fetch(originUrl, {
         method: 'GET',
         headers: { 'Content-Type': 'application/octet-stream' },
@@ -66,9 +66,9 @@ export class MediaService {
 
     // 开始上传oss
     try {
-      const url = await this.fileManagerService.uploadFileByOss(path.join(dirPath, outPutFileName), outPutFileName);
-      console.log(`转码完成。源文件地址：${originUrl}，最终 URL:${url}`);
-      return url;
+      const data = await this.fileManagerService.uploadFileByOss(path.join(dirPath, outPutFileName), outPutFileName);
+      console.log(`转码完成。源文件地址：${originUrl}，最终 URL:${data.url}`);
+      return data;
     } catch (error) {
       throw new HttpException('oss上传失败', HttpStatus.BAD_REQUEST);
     } finally {
