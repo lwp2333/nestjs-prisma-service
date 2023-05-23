@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { PrismaService } from './services/prisma.service';
-import { PuppeteerModule } from './puppeteer/puppeteer.module';
-import { UploadModule } from './upload/upload.module';
-import { TraslateModule } from './traslate/traslate.module';
 import { MediaModule } from './media/media.module';
+import { PuppeteerModule } from './puppeteer/puppeteer.module';
+import { PrismaService } from './services/prisma.service';
+import { TraslateModule } from './traslate/traslate.module';
+import { UploadModule } from './upload/upload.module';
 
+import { WsModule } from './ws/ws.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -18,6 +19,7 @@ import { MediaModule } from './media/media.module';
     UploadModule,
     TraslateModule,
     MediaModule,
+    WsModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService, PrismaService],

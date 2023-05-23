@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import puppeteer from 'puppeteer';
-import { nanoid } from 'nanoid';
 import { FileManagerService } from '@/file-manager/file-manager.service';
+import { Injectable } from '@nestjs/common';
+import { nanoid } from 'nanoid';
+import puppeteer from 'puppeteer';
 import { CreatePdfDto, CreateScreenshotDto, PdfFormatEnum } from './dto/puppeteer.dto';
 
 @Injectable()
@@ -9,10 +9,19 @@ export class PuppeteerService {
   constructor(private readonly fileManagerService: FileManagerService) {}
   async createScreenshot(options: CreateScreenshotDto) {
     const browser = await puppeteer.launch({
+      headless: 'new',
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
     const page = await browser.newPage();
-    const { url, width = 1920, height = 1080, deviceScaleFactor = 1, isLandscape = false, isMobile = false } = options;
+    const {
+      url,
+      width = 1920,
+      height = 1080,
+      deviceScaleFactor = 1,
+      isLandscape = false,
+      isMobile = false,
+      fullPage = true,
+    } = options;
     await page.setViewport({
       width,
       height,
@@ -26,7 +35,8 @@ export class PuppeteerService {
       await page.goto(url, {
         waitUntil: 'networkidle2',
       });
-      await page.screenshot({ path: filePath, type: 'png' });
+      // 整个页面
+      await page.screenshot({ path: filePath, type: 'png', fullPage });
     } catch (error) {
       throw error;
     } finally {

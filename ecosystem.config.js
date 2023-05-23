@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'next-blog',
+      name: 'nestjs-prisma-service',
       script: 'pnpm',
       args: 'start:prod',
       env: {

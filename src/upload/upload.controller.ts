@@ -1,11 +1,10 @@
+import { FileManagerService } from '@/file-manager/file-manager.service';
 import { Body, Controller, ParseFilePipe, Post, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUploadDto } from './dto/upload.dto';
 import { UploadEntity } from './entities/upload.entity';
 import { UploadService } from './upload.service';
-import { FileManagerService } from '@/file-manager/file-manager.service';
-
 @ApiTags('upload')
 @Controller('upload')
 export class UploadController {

@@ -136,5 +136,19 @@
       window.addEventListener('resize', autoRootFontSize);
       autoRootFontSize();
     })();
+
+    const socket = new WebSocket('ws://localhost:8080');
+    socket.onopen = function () {
+      console.log('Connected');
+      socket.send(
+        JSON.stringify({
+          event: 'exchange',
+          data: 'test',
+        })
+      );
+      socket.onmessage = function (e) {
+        console.log(e.data);
+      };
+    };
   </script>
 </html>

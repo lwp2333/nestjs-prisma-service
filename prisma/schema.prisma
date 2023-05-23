@@ -7,17 +7,127 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model config {
-  id       Int  @id @default(autoincrement())
-  key_name Json
-  value    Json
+model album {
+  id             Int      @id @default(autoincrement())
+  name           String
+  desc           String?
+  coverUrl       String
+  lastUpdateTime DateTime @default(now())
+  userOpenid     String
+  user           user     @relation(fields: [userOpenid], references: [openid])
+  asset          asset[]
+
+  @@index([userOpenid], map: "album_userOpenid_fkey")
 }
 
-model life_fragment {
-  id      Int    @id @default(autoincrement())
-  title   String @db.VarChar(255)
-  content String @db.VarChar(255)
-  images  Json
-  videos  Json
-  tags    Json
+model asset {
+  id             Int        @id @default(autoincrement())
+  url            String
+  type           asset_type @default(unknown)
+  sort           Int?
+  size           Int?
+  poster         String?
+  lastUpdateTime DateTime   @default(now())
+  userOpenid     String
+  albumId        Int
+  plogId         Int?
+  album          album      @relation(fields: [albumId], references: [id])
+  plog           plog?      @relation(fields: [plogId], references: [id])
+  user           user       @relation(fields: [userOpenid], references: [openid])
+
+  @@index([albumId], map: "asset_albumId_fkey")
+  @@index([plogId], map: "asset_plogId_fkey")
+  @@index([userOpenid], map: "asset_userOpenid_fkey")
+}
+
+model lifeinventory {
+  id             Int                    @id @default(autoincrement())
+  name           String
+  status         lifeinventory_status   @default(unFinish)
+  fontSize       lifeinventory_fontSize @default(default)
+  color          String
+  lastUpdateTime DateTime               @default(now())
+  userOpenid     String
+  user           user                   @relation(fields: [userOpenid], references: [openid], map: "lifeInventory_userOpenid_fkey")
+
+  @@index([userOpenid], map: "lifeInventory_userOpenid_fkey")
+}
+
+model memorialday {
+  id             Int                  @id @default(autoincrement())
+  name           String
+  icon           String
+  date           DateTime
+  type           memorialday_type
+  dateType       memorialday_dateType
+  lastUpdateTime DateTime             @default(now())
+  userOpenid     String
+  user           user                 @relation(fields: [userOpenid], references: [openid], map: "memorialDay_userOpenid_fkey")
+
+  @@index([userOpenid], map: "memorialDay_userOpenid_fkey")
+}
+
+model plog {
+  id             Int      @id @default(autoincrement())
+  content        String?
+  address        String?
+  lastUpdateTime DateTime @default(now())
+  userOpenid     String
+  asset          asset[]
+  user           user     @relation(fields: [userOpenid], references: [openid])
+
+  @@index([userOpenid], map: "plog_userOpenid_fkey")
+}
+
+model user {
+  openid         String          @id
+  nickName       String
+  avatar         String
+  gender         user_gender     @default(unknown)
+  signature      String
+  birthday       DateTime
+  bindUser       String?
+  bannerList     Json
+  registerTime   DateTime        @default(now())
+  lastUpdateTime DateTime        @default(now())
+  album          album[]
+  asset          asset[]
+  lifeinventory  lifeinventory[]
+  memorialday    memorialday[]
+  plog           plog[]
+}
+
+enum asset_type {
+  unknown
+  image
+  video
+  audio
+}
+
+enum lifeinventory_status {
+  unFinish
+  finish
+}
+
+enum lifeinventory_fontSize {
+  small
+  default
+  middle
+  large
+}
+
+enum user_gender {
+  unknown
+  female
+  male
+}
+
+enum memorialday_type {
+  countdown
+  cumulative
+}
+
+enum memorialday_dateType {
+  solar
+  lunar
 }

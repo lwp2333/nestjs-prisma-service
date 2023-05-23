@@ -22,6 +22,13 @@ export class CreateScreenshotDto {
   @IsNumber()
   height?: number;
   /**
+   * 是否
+   * `默认` true
+   */
+  @IsOptional()
+  @IsBoolean()
+  fullPage?: boolean;
+  /**
    * dpr
    * `默认` 1
    */

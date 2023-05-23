@@ -1,6 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { WsAdapter } from '@nestjs/platform-ws';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import path from 'path';
 
@@ -11,6 +12,8 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+  // ws
+  app.useWebSocketAdapter(new WsAdapter(app));
   // 统一返回拦截器
   app.useGlobalInterceptors(new TranformInterceptor());
   // 统一错误过滤返回
